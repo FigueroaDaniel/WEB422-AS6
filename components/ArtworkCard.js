@@ -24,7 +24,7 @@ function ArtworkCard({ objectID }) {
                     {`Medium: ${data.medium || 'N/A'}`}
                 </Card.Text>
                 <Link href={`/artwork/${objectID}`} passHref>
-                    <Button variant="primary">ID: {objectID}</Button>
+                    <Button class="btn btn-outline-dark">ID: {objectID}</Button>
                 </Link>
             </Card.Body>
         </Card>

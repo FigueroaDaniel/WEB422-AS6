@@ -8,24 +8,24 @@ function History() {
     const router = useRouter();
     const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
 
-  let parsedHistory = []; // given
-  searchHistory.forEach(h => { // given
-      let params = new URLSearchParams(h); // given
-      let entries = params.entries(); // given
-      parsedHistory.push(Object.fromEntries(entries)); // given
-  }); // given
-  const historyClicked = (e, index) => { // given
+    let parsedHistory = []; 
+    searchHistory.forEach(h => { 
+        let params = new URLSearchParams(h); 
+        let entries = params.entries(); 
+        parsedHistory.push(Object.fromEntries(entries));
+    });
+    const historyClicked = (e, index) => {
         e.stopPropagation();
         const query = searchHistory[index];
         router.push(`/artwork${query}`);
     };
-  const removeHistoryClicked = (e, index) => { // given
-      e.stopPropagation(); // given
-      setSearchHistory(current => { // given
-          let x = [...current];  // given
-          x.splice(index, 1); // given
-          return x; // given
-      }); // given
+    const removeHistoryClicked = (e, index) => {
+        e.stopPropagation(); 
+        setSearchHistory(current => { 
+            let x = [...current];  
+            x.splice(index, 1); 
+            return x;
+        });
     };
     return (
         <Card>
@@ -42,18 +42,10 @@ function History() {
                                 className={styles.historyListItem}
                             >
                                 {Object.keys(historyItem).map((key) => (
-                                    <>
-                                        {key}: <strong>{historyItem[key]}</strong>&nbsp;
-                                    </>
+                                    <>{key}: <strong>{historyItem[key]}</strong>&nbsp;</>
                                 ))}
-                                <Button
-                                    className="float-end"
-                                    variant="danger"
-                                    size="sm"
-                                    onClick={(e) => removeHistoryClicked(e, index)}
-                                >
-                                    &times;
-                                </Button>
+                                <Button className="float-end" variant="danger" size="sm"
+                                onClick={(e) => removeHistoryClicked(e, index)}>&times;</Button>
                             </ListGroup.Item>
                         ))}
                     </ListGroup>
@@ -61,6 +53,6 @@ function History() {
             </Card.Body>
         </Card>
     );
-    }
+}
 
 export default History

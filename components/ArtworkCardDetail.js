@@ -7,17 +7,17 @@ import { favouritesAtom } from '../store';
 import { useState } from 'react';
 
 function ArtworkCardDetail({ objectID }) {
-    const [favouritesList, setFavouritesList] = useAtom(favouritesAtom); // Use the favouritesAtom with useAtom
-    const [showAdded, setShowAdded] = useState(favouritesList.includes(objectID)); // Check if objectID is in favouritesList
+    const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
+    const [showAdded, setShowAdded] = useState(favouritesList.includes(objectID));
+    const { data, error } = useSWR(objectID ? `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}` : null); 
     const favouritesClicked = () => {
         if (showAdded) {
-            setFavouritesList((current) => current.filter((fav) => fav !== objectID)); // Remove objectID from favouritesList
+            setFavouritesList((current) => current.filter((fav) => fav !== objectID)); 
         } else {
-            setFavouritesList((current) => [...current, objectID]); // Add objectID to favouritesList
+            setFavouritesList((current) => [...current, objectID]); 
         }
-        setShowAdded(!showAdded); // Toggle showAdded state
+        setShowAdded(!showAdded);
     };
-    const { data, error } = useSWR(objectID ? `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}` : null); // Conditional Fetching with useSWR
     if (error) {
         return <Error statusCode={404} />
     }

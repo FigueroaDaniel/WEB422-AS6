@@ -5,6 +5,7 @@ import Error from 'next/error';
 import { useAtom } from 'jotai';
 import { favouritesAtom } from '../store';
 import { useState } from 'react';
+import { addToFavourites, removeFromFavourites } from '../lib/userData'
 
 function ArtworkCardDetail({ objectID }) {
     const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);

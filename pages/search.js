@@ -16,7 +16,6 @@ function AdvancedSearch() {
         if (data.geoLocation) queryString += `&geoLocation=${data.geoLocation}`;
         if (data.medium) queryString += `&medium=${data.medium}`;
         queryString += `&isOnView=${data.isOnView}&isHighlight=${data.isHighlight}&q=${data.q}`;
-        setSearchHistory(current => [...current, queryString]);
         router.push(`/artwork?${queryString}`);
     }
 

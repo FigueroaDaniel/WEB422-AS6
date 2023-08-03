@@ -9,11 +9,13 @@ function History() {
     const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
 
     let parsedHistory = []; 
-    searchHistory.forEach(h => { 
-        let params = new URLSearchParams(h); 
-        let entries = params.entries(); 
-        parsedHistory.push(Object.fromEntries(entries));
-    });
+    if (searchHistory) {
+        searchHistory.map(h => {
+            let params = new URLSearchParams(h);
+            let entries = params.entries();
+            parsedHistory.push(Object.fromEntries(entries));
+        });
+    }
     const historyClicked = (e, index) => {
         e.stopPropagation();
         const query = searchHistory[index];

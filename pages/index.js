@@ -8,6 +8,20 @@
 *
 ********************************************************************************/ 
 
+/*********************************************************************************
+*  WEB422 – Assignment 06
+*  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part of this
+*  assignment has been copied manually or electronically from any other source (including web sites) or 
+*  distributed to other students.
+* 
+*  Name: Daniel Figueroa Student ID: 159966217 Date: August 6th, 2023
+*
+*  Vercel App (Deployed) Link: _____________________________________________________
+*
+********************************************************************************/ 
+
+
+
 import { Image, Row, Col } from 'react-bootstrap';
 import Layout from '../components/Layout';
 

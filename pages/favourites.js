@@ -18,9 +18,9 @@ function Favourites() {
     }
     return (
         <Row className="gy-4">
-            {favouritesList.map((objectID) => (
-                <Col lg={3} key={objectID}>
-                    <ArtworkCard objectID={objectID} />
+            {favouritesList.map((currentObjectID) => (
+                <Col lg={3} key={currentObjectID}>
+                    <ArtworkCard objectID={currentObjectID} />
                 </Col>
             ))}
         </Row>

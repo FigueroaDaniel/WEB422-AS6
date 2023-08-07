@@ -4,13 +4,13 @@ import { useAtom } from 'jotai';
 import { isAuthenticatedAtom, favouritesAtom, searchHistoryAtom } from '../store';
 import { getFavourites, getHistory } from '../lib/userData';
 
-const PUBLIC_PATHS = ['/login', '/register'];
+const PUBLIC_PATHS = ['/login', '/', '/_error', '/register'];
 
-function RouteGuard({ children }) {
+function RouteGuard(props) {
   const router = useRouter();
-  const [isAuthenticated] = useAtom(isAuthenticatedAtom);
-  const [ favouritesList , setFavouritesList] = useAtom(favouritesAtom);
-  const [ searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
+  const [isAuthenticated, setIsAuthenticated] = useAtom(isAuthenticatedAtom);
+  const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
+  const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
 
   useEffect(() => {
     async function updateAtoms() {
@@ -30,7 +30,7 @@ function RouteGuard({ children }) {
     }
   }, [isAuthenticated, router]);
 
-  return <>{children}</>;
+  return <>{isAuthenticated && props.children}</>;
 }
 
 export default RouteGuard;

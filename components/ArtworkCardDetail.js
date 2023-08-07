@@ -5,23 +5,31 @@ import Error from 'next/error';
 import { useAtom } from 'jotai';
 import { favouritesAtom } from '../store';
 import { useState } from 'react';
+import { useEffect } from 'react';
 import { addToFavourites, removeFromFavourites } from '../lib/userData'
 
-function ArtworkCardDetail({ objectID }) {
+function ArtworkCardDetail(props) {
     const [favouritesList, setFavouritesList] = useAtom(favouritesAtom);
-    const [showAdded, setShowAdded] = useState(favouritesList.includes(objectID));
-    const { data, error } = useSWR(objectID ? `https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}` : null); 
+    const [showAdded, setShowAdded] = useState(false);
+
+    useEffect(() => {
+        setShowAdded(favouritesList?.includes(props.objectID))
+    }, [favouritesList, props.objectID]);
+
+    const { data, error } = useSWR(props.objectID ? `https://collectionapi.metmuseum.org/public/collection/v1/objects/${props.objectID}` : null); 
 
     const favouritesClicked = async () => {
+        if (!props.objectID) {
+          return;
+        }
         if (showAdded) {
-            const removedFavouritesList = await removeFromFavourites(objectID);
-            setFavouritesList(removedFavouritesList);
+            await removeFromFavourites(props.objectID);
         } else {
-            const addedFavouritesList = await addToFavourites(objectID);
-            setFavouritesList(addedFavouritesList);
+            await addToFavourites(props.objectID);
         }
         setShowAdded(!showAdded);
     };
+
     if (error) {
         return <Error statusCode={404} />
     }

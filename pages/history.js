@@ -1,25 +1,26 @@
 import { useRouter } from 'next/router';
 import { Card, ListGroup, Button } from 'react-bootstrap';
 import { useAtom } from 'jotai';
-import { searchHistoryAtom } from '../store';
+import { searchHistoryAtom} from '../store';
 import styles from '@/styles/History.module.css';
 
 function History() {
     const router = useRouter();
     const [searchHistory, setSearchHistory] = useAtom(searchHistoryAtom);
 
-    let parsedHistory = []; 
-    if (searchHistory) {
-        searchHistory.map(h => {
-            let params = new URLSearchParams(h);
-            let entries = params.entries();
-            parsedHistory.push(Object.fromEntries(entries));
-        });
-    }
+    let parsedHistory = [];
+    if(!searchHistory) return null;
+    
+
+    searchHistory.map(h => {
+        let params = new URLSearchParams(h);
+        let entries = params.entries();
+        parsedHistory.push(Object.fromEntries(entries));
+    });
+
     const historyClicked = (e, index) => {
         e.stopPropagation();
-        const query = searchHistory[index];
-        router.push(`/artwork${query}`);
+        router.push(`/artwork?${searchHistory[index]}`);
     };
     const removeHistoryClicked = (e, index) => {
         e.stopPropagation(); 
